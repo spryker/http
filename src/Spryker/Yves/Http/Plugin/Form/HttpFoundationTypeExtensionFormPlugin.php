@@ -15,10 +15,10 @@ use Symfony\Component\Form\FormFactoryBuilderInterface;
 /**
  * @method \Spryker\Yves\Http\HttpFactory getFactory()
  */
-class HttpFoundationFormPlugin extends AbstractPlugin implements FormPluginInterface
+class HttpFoundationTypeExtensionFormPlugin extends AbstractPlugin implements FormPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Adds the basic Symfony HttpFoundation extension.
      *
      * @api
