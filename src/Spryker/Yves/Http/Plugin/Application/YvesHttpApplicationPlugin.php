@@ -19,12 +19,10 @@ use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\RequestContext;
 
 /**
- * @deprecated Use {@link \Spryker\Yves\Http\Plugin\Application\YvesHttpApplicationPlugin} instead.
- *
  * @method \Spryker\Yves\Http\HttpConfig getConfig()
  * @method \Spryker\Yves\Http\HttpFactory getFactory()
  */
-class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginInterface
+class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginInterface
 {
     /**
      * @var string
@@ -148,12 +146,7 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
     protected function addRequestStack(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_REQUEST_STACK, function () {
-            $stack = new RequestStack();
-            $stack->push(
-                Request::createFromGlobals(),
-            );
-
-            return $stack;
+            return new RequestStack();
         });
 
         return $container;
