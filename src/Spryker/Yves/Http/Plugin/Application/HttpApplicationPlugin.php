@@ -9,6 +9,7 @@ namespace Spryker\Yves\Http\Plugin\Application;
 
 use ArrayObject;
 use Spryker\Service\Container\ContainerInterface;
+use Spryker\Shared\Application\Kernel;
 use Spryker\Shared\ApplicationExtension\Dependency\Plugin\ApplicationPluginInterface;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -130,6 +131,10 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
     protected function addHttpKernel(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_KERNEL, function (ContainerInterface $container) {
+            return new Kernel($container);
+        });
+
+        $container->set('http_kernel', function (ContainerInterface $container) {
             return new HttpKernel(
                 $this->getEventDispatcher($container),
                 $this->getResolver($container),

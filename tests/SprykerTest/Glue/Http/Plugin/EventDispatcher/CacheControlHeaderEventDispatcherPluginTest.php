@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerTest\Zed\Http\Plugin\EventDispatcher;
+namespace SprykerTest\Glue\Http\Plugin\EventDispatcher;
 
 use Codeception\Test\Unit;
 use Spryker\Glue\Http\Plugin\EventDispatcher\CacheControlHeaderEventDispatcherPlugin;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Auto-generated group annotations
  *
  * @group SprykerTest
- * @group Zed
+ * @group Glue
  * @group Http
  * @group Plugin
  * @group EventDispatcher

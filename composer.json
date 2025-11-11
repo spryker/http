@@ -28,6 +28,7 @@
         "spryker/testify": "*"
     },
     "suggest": {
+        "spryker/application": "If you want to use DependencyInjection.",
         "spryker/container": "If you want to use Http plugins.",
         "spryker/event-dispatcher": "If you want to use Http plugins."
     },

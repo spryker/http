@@ -9,6 +9,7 @@ namespace Spryker\Zed\Http\Communication\Plugin\Application;
 
 use ArrayObject;
 use Spryker\Service\Container\ContainerInterface;
+use Spryker\Shared\Application\Kernel;
 use Spryker\Shared\ApplicationExtension\Dependency\Plugin\ApplicationPluginInterface;
 use Spryker\Zed\Http\Communication\SubRequest\SubRequestHandler;
 use Spryker\Zed\Http\Communication\SubRequest\SubRequestHandlerInterface;
@@ -105,6 +106,20 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
      */
     protected function addKernelService(ContainerInterface $container): ContainerInterface
     {
+        // Forward compatibility to updated spryker/kernel module.
+        if (class_exists(Kernel::class)) {
+            $container->set('http_kernel', function (ContainerInterface $container) {
+                return new HttpKernel(
+                    $this->getEventDispatcher($container),
+                    $this->getResolver($container),
+                    $this->getRequestStack($container),
+                );
+            });
+
+            return $container;
+        }
+
+        // Fall back to old behavior.
         $container->set(static::SERVICE_KERNEL, function (ContainerInterface $container) {
             return new HttpKernel(
                 $this->getEventDispatcher($container),

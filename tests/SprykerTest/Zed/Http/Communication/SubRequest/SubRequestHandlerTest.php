@@ -9,6 +9,7 @@ namespace SprykerTest\Zed\Http\Communication\SubRequest;
 
 use Codeception\Test\Unit;
 use Spryker\Zed\Http\Communication\SubRequest\SubRequestHandler;
+use SprykerTest\Zed\Http\HttpCommunicationTester;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,28 +36,29 @@ class SubRequestHandlerTest extends Unit
      */
     public const POST_PARAMS = ['fruit' => 'orange'];
 
-    /**
-     * @var string
-     */
-    public const URL_SUB_REQUEST = '/foo/bar/baz';
+    protected HttpCommunicationTester $tester;
 
-    /**
-     * @var \SprykerTest\Zed\Http\HttpCommunicationTester
-     */
-    protected $tester;
+    protected function _setUp()
+    {
+        parent::_setUp();
+
+        $this->tester->addRoute('test-get-route', '/sub-request-get', function (Request $request) {
+            return new Response(sprintf('GET: fruit=%s', $request->query->get('fruit')));
+        });
+
+        $this->tester->addRoute('test-post-route', '/sub-request-post', function (Request $request) {
+            return new Response(sprintf('POST: fruit=%s', $request->request->get('fruit')));
+        });
+    }
 
     /**
      * @return void
      */
     public function testHandleSubRequestWithGetParams(): void
     {
-        $this->tester->addRoute('test-route', static::URL_SUB_REQUEST, function (Request $request) {
-            return new Response(sprintf('GET: fruit=%s', $request->query->get('fruit')));
-        });
-
         $subRequestHandler = new SubRequestHandler($this->tester->getKernel());
         $request = new Request(static::GET_PARAMS);
-        $response = $subRequestHandler->handleSubRequest($request, static::URL_SUB_REQUEST);
+        $response = $subRequestHandler->handleSubRequest($request, '/sub-request-get');
 
         $this->assertSame('GET: fruit=mango', $response->getContent());
     }
@@ -66,13 +68,9 @@ class SubRequestHandlerTest extends Unit
      */
     public function testHandleSubRequestWithPostParams(): void
     {
-        $this->tester->addRoute('test-route', static::URL_SUB_REQUEST, function (Request $request) {
-            return new Response(sprintf('POST: fruit=%s', $request->request->get('fruit')));
-        });
-
         $subRequestHandler = new SubRequestHandler($this->tester->getKernel());
         $request = new Request([], static::POST_PARAMS);
-        $response = $subRequestHandler->handleSubRequest($request, static::URL_SUB_REQUEST);
+        $response = $subRequestHandler->handleSubRequest($request, '/sub-request-post');
 
         $this->assertSame('POST: fruit=orange', $response->getContent());
     }
