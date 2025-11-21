@@ -7,6 +7,9 @@
 
 namespace Spryker\Yves\Http;
 
+use Spryker\Shared\Http\DataCollector\ExternalHttpDataCollector;
+use Spryker\Shared\Http\Logger\ExternalHttpInMemoryLogger;
+use Spryker\Shared\Http\Logger\ExternalHttpInMemoryLoggerInterface;
 use Spryker\Yves\Http\Dependency\Client\HttpToLocaleClientInterface;
 use Spryker\Yves\Http\Dependency\Client\HttpToStoreClientInterface;
 use Spryker\Yves\Kernel\AbstractFactory;
@@ -14,6 +17,7 @@ use Symfony\Bridge\Twig\Extension\HttpKernelExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\HttpFoundation\Type\FormTypeHttpFoundationExtension;
 use Symfony\Component\Form\FormTypeExtensionInterface;
+use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 use Symfony\Component\HttpKernel\EventListener\FragmentListener;
 use Symfony\Component\HttpKernel\UriSigner;
 use Twig\Extension\AbstractExtension;
@@ -77,5 +81,17 @@ class HttpFactory extends AbstractFactory
     public function getStoreClient(): HttpToStoreClientInterface
     {
         return $this->getProvidedDependency(HttpDependencyProvider::CLIENT_STORE);
+    }
+
+    public function createExternalHttpDataCollector(): DataCollectorInterface
+    {
+        return new ExternalHttpDataCollector(
+            $this->createExternalHttpInMemoryLogger(),
+        );
+    }
+
+    public function createExternalHttpInMemoryLogger(): ExternalHttpInMemoryLoggerInterface
+    {
+        return ExternalHttpInMemoryLogger::getInstance();
     }
 }
