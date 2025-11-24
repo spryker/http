@@ -19,7 +19,7 @@ class WebProfilerExternalHttpDataCollectorPlugin extends AbstractPlugin implemen
 {
     protected const string DATA_COLLECTOR_NAME = 'external_http';
 
-    protected const string DATA_TEMPLATE_NAME = '@WebProfilerWidget/external-http';
+    protected const string DATA_TEMPLATE_NAME = '@Http/external-http';
 
     /**
      * {@inheritDoc}
