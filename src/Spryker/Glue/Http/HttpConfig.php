@@ -113,4 +113,34 @@ class HttpConfig extends AbstractBundleConfig
     {
         return $this->get(HttpConstants::GLUE_HTTP_CACHE_CONTROL_CONFIG, []);
     }
+
+    /**
+     * @api
+     *
+     * @return string|null
+     */
+    public function getHIncludeRendererGlobalTemplate(): ?string
+    {
+        return $this->getSharedConfig()->getHIncludeRendererGlobalTemplate();
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getHttpFragmentPath(): string
+    {
+        return $this->getSharedConfig()->getHttpFragmentPath();
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getUriSignerSecret(): string
+    {
+        return $this->getSharedConfig()->getUriSignerSecret();
+    }
 }
