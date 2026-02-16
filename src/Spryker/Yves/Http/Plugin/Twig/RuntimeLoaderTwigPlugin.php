@@ -19,7 +19,7 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 /**
  * @method \Spryker\Yves\Http\HttpFactory getFactory()
- * @method \Spryker\yves\Http\HttpConfig getConfig()
+ * @method \Spryker\Yves\Http\HttpConfig getConfig()
  */
 class RuntimeLoaderTwigPlugin extends AbstractPlugin implements TwigPluginInterface
 {
