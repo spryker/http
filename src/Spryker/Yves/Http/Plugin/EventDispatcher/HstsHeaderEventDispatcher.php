@@ -65,11 +65,6 @@ class HstsHeaderEventDispatcher extends AbstractPlugin implements EventDispatche
         return $eventDispatcher;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     protected function setHSTSHeader(Response $response): Response
     {
         $headerBody = $this->buildHeaderBody($this->getConfig()->getHstsConfig());
@@ -80,11 +75,6 @@ class HstsHeaderEventDispatcher extends AbstractPlugin implements EventDispatche
         return $response;
     }
 
-    /**
-     * @param array $hstsConfig
-     *
-     * @return string
-     */
     protected function buildHeaderBody(array $hstsConfig): string
     {
         $headerParts = [];
@@ -103,11 +93,6 @@ class HstsHeaderEventDispatcher extends AbstractPlugin implements EventDispatche
         return implode('; ', $headerParts);
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     *
-     * @return bool
-     */
     protected function isMainRequest(ResponseEvent $event): bool
     {
         if (method_exists($event, 'isMasterRequest')) {

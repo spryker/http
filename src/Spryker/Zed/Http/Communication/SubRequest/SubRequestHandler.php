@@ -18,21 +18,11 @@ class SubRequestHandler implements SubRequestHandlerInterface
      */
     protected $httpKernel;
 
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $httpKernel
-     */
     public function __construct(HttpKernelInterface $httpKernel)
     {
         $this->httpKernel = $httpKernel;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $url
-     * @param array $additionalSubRequestParameters
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function handleSubRequest(Request $request, string $url, array $additionalSubRequestParameters = []): Response
     {
         $subRequest = $this->createSubRequest($request, $url, $additionalSubRequestParameters);
@@ -41,13 +31,6 @@ class SubRequestHandler implements SubRequestHandlerInterface
         return $subRequestResponse;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $url
-     * @param array $additionalSubRequestParameters
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     protected function createSubRequest(Request $request, string $url, array $additionalSubRequestParameters): Request
     {
         $subRequest = $this->createRequestObject($request, $url, $additionalSubRequestParameters);

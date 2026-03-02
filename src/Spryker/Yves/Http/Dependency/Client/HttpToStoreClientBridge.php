@@ -24,9 +24,6 @@ class HttpToStoreClientBridge implements HttpToStoreClientInterface
         $this->storeClient = $storeClient;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(): StoreTransfer
     {
         return $this->storeClient->getCurrentStore();

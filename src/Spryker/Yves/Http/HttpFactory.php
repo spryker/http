@@ -27,9 +27,6 @@ use Twig\Extension\AbstractExtension;
  */
 class HttpFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Yves\Http\Dependency\Client\HttpToLocaleClientInterface
-     */
     public function getLocaleClient(): HttpToLocaleClientInterface
     {
         return $this->getProvidedDependency(HttpDependencyProvider::CLIENT_LOCALE);
@@ -43,41 +40,26 @@ class HttpFactory extends AbstractFactory
         return $this->getProvidedDependency(HttpDependencyProvider::PLUGINS_FRAGMENT_HANDLER);
     }
 
-    /**
-     * @return \Twig\Extension\AbstractExtension
-     */
     public function createHttpKernelExtension(): AbstractExtension
     {
         return new HttpKernelExtension();
     }
 
-    /**
-     * @return \Symfony\Component\HttpKernel\UriSigner
-     */
     public function createUriSigner(): UriSigner
     {
         return new UriSigner($this->getConfig()->getUriSignerSecret());
     }
 
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     public function createHttpFragmentListener(): EventSubscriberInterface
     {
         return new FragmentListener($this->createUriSigner(), $this->getConfig()->getHttpFragmentPath());
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeExtensionInterface
-     */
     public function createFormTypeHttpFoundationExtension(): FormTypeExtensionInterface
     {
         return new FormTypeHttpFoundationExtension();
     }
 
-    /**
-     * @return \Spryker\Yves\Http\Dependency\Client\HttpToStoreClientInterface
-     */
     public function getStoreClient(): HttpToStoreClientInterface
     {
         return $this->getProvidedDependency(HttpDependencyProvider::CLIENT_STORE);

@@ -37,25 +37,16 @@ class HttpGlueTester extends Actor
 {
     use _generated\HttpGlueTesterActions;
 
-    /**
-     * @return \Symfony\Component\HttpKernel\Event\ResponseEvent
-     */
     public function getResponseEvent(): ResponseEvent
     {
         return new ResponseEvent($this->getHttpKernelMock(), Request::createFromGlobals(), HttpKernelInterface::MASTER_REQUEST, new Response());
     }
 
-    /**
-     * @return \Symfony\Component\HttpKernel\Event\RequestEvent
-     */
     public function getRequestEvent(): RequestEvent
     {
         return new RequestEvent($this->getHttpKernelMock(), Request::createFromGlobals(), HttpKernelInterface::MASTER_REQUEST);
     }
 
-    /**
-     * @return \Symfony\Component\HttpKernel\HttpKernelInterface
-     */
     protected function getHttpKernelMock(): HttpKernelInterface
     {
         /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $httpKernelMock */

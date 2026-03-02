@@ -24,9 +24,6 @@ use Twig\Extension\AbstractExtension;
  */
 class HttpCommunicationFactory extends AbstractCommunicationFactory
 {
-    /**
-     * @return \Spryker\Zed\Http\Dependency\Facade\HttpToLocaleFacadeInterface
-     */
     public function getLocaleFacade(): HttpToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(HttpDependencyProvider::FACADE_LOCALE);
@@ -40,41 +37,26 @@ class HttpCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(HttpDependencyProvider::PLUGINS_FRAGMENT_HANDLER);
     }
 
-    /**
-     * @return \Twig\Extension\AbstractExtension
-     */
     public function createHttpKernelExtension(): AbstractExtension
     {
         return new HttpKernelExtension();
     }
 
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     public function createHttpFragmentListener(): EventSubscriberInterface
     {
         return new FragmentListener($this->createUriSigner(), $this->getConfig()->getHttpFragmentPath());
     }
 
-    /**
-     * @return \Symfony\Component\HttpKernel\UriSigner
-     */
     public function createUriSigner(): UriSigner
     {
         return new UriSigner($this->getConfig()->getUriSignerSecret());
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeExtensionInterface
-     */
     public function createFormTypeHttpFoundationExtension(): FormTypeExtensionInterface
     {
         return new FormTypeHttpFoundationExtension();
     }
 
-    /**
-     * @return \Spryker\Zed\Http\Dependency\Facade\HttpToStoreFacadeInterface
-     */
     public function getStoreFacade(): HttpToStoreFacadeInterface
     {
         return $this->getProvidedDependency(HttpDependencyProvider::FACADE_STORE);

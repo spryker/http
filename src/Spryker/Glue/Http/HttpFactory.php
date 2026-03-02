@@ -21,9 +21,6 @@ use Twig\Extension\AbstractExtension;
  */
 class HttpFactory extends AbstractFactory
 {
-    /**
-     * @return \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface
-     */
     public function createExternalHttpDataCollector(): DataCollectorInterface
     {
         return new ExternalHttpDataCollector(
@@ -31,17 +28,11 @@ class HttpFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\Http\Logger\ExternalHttpInMemoryLoggerInterface
-     */
     public function createExternalHttpInMemoryLogger(): ExternalHttpInMemoryLoggerInterface
     {
         return ExternalHttpInMemoryLogger::getInstance();
     }
 
-    /**
-     * @return \Twig\Extension\AbstractExtension
-     */
     public function createHttpKernelExtension(): AbstractExtension
     {
         return new HttpKernelExtension();
@@ -55,9 +46,6 @@ class HttpFactory extends AbstractFactory
         return $this->getProvidedDependency(HttpDependencyProvider::PLUGINS_FRAGMENT_HANDLER);
     }
 
-    /**
-     * @return \Symfony\Component\HttpKernel\UriSigner
-     */
     public function createUriSigner(): UriSigner
     {
         return new UriSigner($this->getConfig()->getUriSignerSecret());

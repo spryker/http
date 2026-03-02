@@ -84,9 +84,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseDisablePluginAndDefaultCacheControlHeader(): void
     {
         // Arrange
@@ -101,9 +98,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective('no-cache'));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseEnablePluginWithDefaultCacheControlHeader(): void
     {
         // Arrange
@@ -120,9 +114,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_NO_CACHE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithPrivateDirective(): void
     {
         // Arrange
@@ -143,9 +134,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithPublicDirective(): void
     {
         // Arrange
@@ -166,9 +154,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_PUBLIC));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithPrivateAndPublicDirective(): void
     {
         // Arrange
@@ -195,9 +180,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_PRIVATE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithPublicAndNoCacheDirective(): void
     {
         // Arrange
@@ -220,9 +202,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_NO_CACHE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithMaxAgeDirective(): void
     {
         // Arrange
@@ -245,9 +224,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertSame('100', $event->getResponse()->headers->getCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_MAX_AGE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithSMaxAgeDirective(): void
     {
         // Arrange
@@ -271,9 +247,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertSame('100', $event->getResponse()->headers->getCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_S_MAX_AGE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithMustRevalidateDirective(): void
     {
         // Arrange
@@ -296,9 +269,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_MUST_REVALIDATE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithNoCacheDirective(): void
     {
         // Arrange
@@ -321,9 +291,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_NO_CACHE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithNoStoreDirective(): void
     {
         // Arrange
@@ -346,9 +313,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_NO_STORE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithNoTransformDirective(): void
     {
         // Arrange
@@ -371,9 +335,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_NO_TRANSFORM));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithImmutableDirective(): void
     {
         // Arrange
@@ -396,9 +357,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_DIRECTIVE_IMMUTABLE));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandleResponseWithStaleWileRevalidateDirective(): void
     {
         // Arrange
@@ -421,11 +379,6 @@ class CacheControlHeaderEventDispatcherPluginTest extends Unit
         $this->assertTrue($event->getResponse()->headers->hasCacheControlDirective(static::CACHE_CONTROL_STALE_WHILE_REVALIDATE));
     }
 
-    /**
-     * @param \Spryker\Shared\EventDispatcherExtension\Dependency\Plugin\EventDispatcherPluginInterface $plugin
-     *
-     * @return \Symfony\Component\HttpKernel\Event\ResponseEvent
-     */
     protected function dispatchEvent(EventDispatcherPluginInterface $plugin): ResponseEvent
     {
         $eventDispatcher = new EventDispatcher();

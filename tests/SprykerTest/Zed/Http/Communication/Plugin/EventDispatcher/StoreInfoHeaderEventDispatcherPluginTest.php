@@ -68,9 +68,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandlesResponseWithHeaderXCodeBucket(): void
     {
         // Arrange
@@ -84,9 +81,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
         $this->assertEquals(APPLICATION_CODE_BUCKET, $response->headers->get(static::HEADER_X_CODE_BUCKET_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandlesResponseWithHeaderXEnv(): void
     {
         // Arrange
@@ -99,9 +93,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
         $this->assertEquals(APPLICATION_ENV, $event->getResponse()->headers->get(static::HEADER_X_ENV_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandlesResponseWithHeaderXStore(): void
     {
         // Arrange
@@ -117,9 +108,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
         $this->assertEquals(static::DEFAULT_STORE, $event->getResponse()->headers->get(static::HEADER_X_STORE_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchEventHandlesResponseWithHeaderXLocale(): void
     {
         // Arrange
@@ -135,11 +123,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
         $this->assertEquals(static::DEFAULT_LOCALE, $event->getResponse()->headers->get(static::HEADER_X_LOCALE_NAME));
     }
 
-    /**
-     * @param \Spryker\Shared\EventDispatcherExtension\Dependency\Plugin\EventDispatcherPluginInterface $plugin
-     *
-     * @return \Symfony\Component\HttpKernel\Event\ResponseEvent
-     */
     protected function dispatchEvent(EventDispatcherPluginInterface $plugin): ResponseEvent
     {
         $eventDispatcher = new EventDispatcher();
@@ -151,9 +134,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
         return $event;
     }
 
-    /**
-     * @return void
-     */
     protected function setLocaleDependency(): void
     {
         $httpToLocaleFacadeMock = $this->getMockBuilder(HttpToLocaleFacadeInterface::class)->onlyMethods(['getCurrentLocale'])->getMock();
@@ -163,9 +143,6 @@ class StoreInfoHeaderEventDispatcherPluginTest extends Unit
         $this->tester->setDependency(HttpDependencyProvider::FACADE_LOCALE, $httpToLocaleFacadeMock);
     }
 
-    /**
-     * @return void
-     */
     protected function setStoreDependency(): void
     {
         $httpToStoreFacadeMock = $this->getMockBuilder(HttpToStoreFacadeInterface::class)->onlyMethods(['getCurrentStore', 'isCurrentStoreDefined'])->getMock();

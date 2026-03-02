@@ -60,11 +60,6 @@ class EnvironmentInfoHeaderEventDispatcherPlugin extends AbstractPlugin implemen
         return $eventDispatcher;
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     *
-     * @return bool
-     */
     protected function isMainRequest(ResponseEvent $event): bool
     {
         if (method_exists($event, 'isMasterRequest')) {
@@ -74,11 +69,6 @@ class EnvironmentInfoHeaderEventDispatcherPlugin extends AbstractPlugin implemen
         return $event->isMainRequest();
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     *
-     * @return void
-     */
     protected function onKernelResponse(ResponseEvent $event): void
     {
         if (!$this->isMainRequest($event)) {

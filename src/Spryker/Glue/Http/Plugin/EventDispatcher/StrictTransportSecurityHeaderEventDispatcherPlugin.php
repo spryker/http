@@ -66,11 +66,6 @@ class StrictTransportSecurityHeaderEventDispatcherPlugin extends AbstractPlugin 
         return $eventDispatcher;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     protected function setStrictTransportSecurityHeader(Response $response): Response
     {
         $headerBody = $this->buildHeaderBody($this->getConfig()->getStrictTransportSecurityConfig());
@@ -104,11 +99,6 @@ class StrictTransportSecurityHeaderEventDispatcherPlugin extends AbstractPlugin 
         return implode('; ', $headerParts);
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     *
-     * @return bool
-     */
     protected function isMainRequest(ResponseEvent $event): bool
     {
         if (method_exists($event, 'isMasterRequest')) {

@@ -46,12 +46,6 @@ class RuntimeLoaderTwigPlugin extends AbstractPlugin implements TwigPluginInterf
         return $twig;
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Fragment\FragmentHandler
-     */
     protected function extendFragmentHandler(FragmentHandler $fragmentHandler, ContainerInterface $container): FragmentHandler
     {
         foreach ($this->getFactory()->getFragmentHandlerPlugins() as $fragmentHandlerPlugin) {
@@ -61,11 +55,6 @@ class RuntimeLoaderTwigPlugin extends AbstractPlugin implements TwigPluginInterf
         return $fragmentHandler;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Twig\RuntimeLoader\RuntimeLoaderInterface
-     */
     protected function createFactoryRuntimeLoader(ContainerInterface $container): RuntimeLoaderInterface
     {
         return new FactoryRuntimeLoader($this->createRuntimeComponentsCollection($container));
@@ -85,11 +74,6 @@ class RuntimeLoaderTwigPlugin extends AbstractPlugin implements TwigPluginInterf
         ];
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Fragment\FragmentHandler
-     */
     protected function createFragmentHandler(ContainerInterface $container): FragmentHandler
     {
         $fragmentHandler = new FragmentHandler(
@@ -101,11 +85,6 @@ class RuntimeLoaderTwigPlugin extends AbstractPlugin implements TwigPluginInterf
         return $fragmentHandler;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpFoundation\RequestStack
-     */
     protected function getRequestStack(ContainerInterface $container): RequestStack
     {
         return $container->get(static::SERVICE_REQUEST_STACK);

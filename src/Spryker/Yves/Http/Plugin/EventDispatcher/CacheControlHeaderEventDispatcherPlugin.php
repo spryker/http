@@ -99,11 +99,6 @@ class CacheControlHeaderEventDispatcherPlugin extends AbstractPlugin implements 
         return $eventDispatcher;
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     *
-     * @return bool
-     */
     protected function isMainRequest(ResponseEvent $event): bool
     {
         if (method_exists($event, 'isMasterRequest')) {
@@ -113,11 +108,6 @@ class CacheControlHeaderEventDispatcherPlugin extends AbstractPlugin implements 
         return $event->isMainRequest();
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     protected function setCacheContorlHeader(Response $response): Response
     {
         $cacheControlConfig = $this->getConfig()->getCacheControlConfig();

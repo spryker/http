@@ -50,11 +50,6 @@ class HIncludeRendererFragmentHandlerPlugin extends AbstractPlugin implements Fr
         return $fragmentHandler;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface
-     */
     protected function createHIncludeRenderer(ContainerInterface $container): FragmentRendererInterface
     {
         $renderer = new HIncludeFragmentRenderer(

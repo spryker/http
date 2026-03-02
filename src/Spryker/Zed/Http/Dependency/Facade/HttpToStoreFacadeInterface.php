@@ -16,8 +16,5 @@ interface HttpToStoreFacadeInterface
      */
     public function getCurrentStore(bool $fallbackToDefault = false);
 
-    /**
-     * @return bool
-     */
     public function isCurrentStoreDefined(): bool;
 }

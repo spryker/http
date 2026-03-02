@@ -24,19 +24,11 @@ class HttpToStoreFacadeBridge implements HttpToStoreFacadeInterface
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @param bool $fallbackToDefault
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(bool $fallbackToDefault = false): StoreTransfer
     {
         return $this->storeFacade->getCurrentStore($fallbackToDefault);
     }
 
-    /**
-     * @return bool
-     */
     public function isCurrentStoreDefined(): bool
     {
         return $this->storeFacade->isCurrentStoreDefined();

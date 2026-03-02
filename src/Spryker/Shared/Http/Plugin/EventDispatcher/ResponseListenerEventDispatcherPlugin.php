@@ -14,12 +14,6 @@ use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
 class ResponseListenerEventDispatcherPlugin implements EventDispatcherPluginInterface
 {
-    /**
-     * @param \Spryker\Shared\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Shared\EventDispatcher\EventDispatcherInterface
-     */
     public function extend(EventDispatcherInterface $eventDispatcher, ContainerInterface $container): EventDispatcherInterface
     {
         $eventDispatcher->addSubscriber(new ResponseListener($container->get('charset')));

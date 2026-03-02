@@ -99,11 +99,6 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addKernelService(ContainerInterface $container): ContainerInterface
     {
         // Forward compatibility to updated spryker/kernel module.
@@ -131,11 +126,6 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addRequestStackService(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_REQUEST_STACK, function () {
@@ -145,11 +135,6 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addRequestContextService(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_REQUEST_CONTEXT, function () {
@@ -164,11 +149,6 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addSubRequestHandlerService(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_SUB_REQUEST, function (ContainerInterface $container): SubRequestHandlerInterface {
@@ -178,27 +158,16 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @return void
-     */
     protected function setTrustedProxies(): void
     {
         Request::setTrustedProxies($this->getConfig()->getTrustedProxies(), $this->getConfig()->getTrustedHeaderSet());
     }
 
-    /**
-     * @return void
-     */
     protected function setTrustedHosts(): void
     {
         Request::setTrustedHosts($this->getConfig()->getTrustedHosts());
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addCookie(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_COOKIES, function () {
@@ -208,21 +177,11 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
     protected function getEventDispatcher(ContainerInterface $container): EventDispatcherInterface
     {
         return $container->get(static::SERVICE_EVENT_DISPATCHER);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
-     */
     protected function getResolver(ContainerInterface $container): ControllerResolverInterface
     {
         if ($container->has(static::SERVICE_CONTROLLER_RESOLVER)) {
@@ -232,11 +191,6 @@ class HttpApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container->get(static::SERVICE_RESOLVER);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpFoundation\RequestStack
-     */
     protected function getRequestStack(ContainerInterface $container): RequestStack
     {
         return $container->get(static::SERVICE_REQUEST_STACK);

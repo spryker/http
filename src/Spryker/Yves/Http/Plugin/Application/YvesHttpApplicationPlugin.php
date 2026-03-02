@@ -91,27 +91,16 @@ class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPlu
         return $container;
     }
 
-    /**
-     * @return void
-     */
     protected function setTrustedProxies(): void
     {
         Request::setTrustedProxies($this->getConfig()->getTrustedProxies(), $this->getConfig()->getTrustedHeaderSet());
     }
 
-    /**
-     * @return void
-     */
     protected function setTrustedHosts(): void
     {
         Request::setTrustedHosts($this->getConfig()->getTrustedHosts());
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addCookie(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_COOKIES, function () {
@@ -121,11 +110,6 @@ class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPlu
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addHttpKernel(ContainerInterface $container): ContainerInterface
     {
         // Forward compatibility to updated spryker/kernel module.
@@ -153,11 +137,6 @@ class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPlu
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addRequestStack(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_REQUEST_STACK, function () {
@@ -167,11 +146,6 @@ class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPlu
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addRequestContext(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_REQUEST_CONTEXT, function () {
@@ -186,21 +160,11 @@ class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPlu
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
     protected function getEventDispatcher(ContainerInterface $container): EventDispatcherInterface
     {
         return $container->get(static::SERVICE_EVENT_DISPATCHER);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
-     */
     protected function getResolver(ContainerInterface $container): ControllerResolverInterface
     {
         if ($container->has(static::SERVICE_CONTROLLER_RESOLVER)) {
@@ -210,11 +174,6 @@ class YvesHttpApplicationPlugin extends AbstractPlugin implements ApplicationPlu
         return $container->get(static::SERVICE_RESOLVER);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpFoundation\RequestStack
-     */
     protected function getRequestStack(ContainerInterface $container): RequestStack
     {
         return $container->get(static::SERVICE_REQUEST_STACK);

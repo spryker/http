@@ -54,11 +54,6 @@ class InlineRendererFragmentHandlerPlugin extends AbstractPlugin implements Frag
         return $fragmentHandler;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface
-     */
     protected function createInlineFragmentRenderer(ContainerInterface $container): FragmentRendererInterface
     {
         $inlineFragmentRenderer = new InlineFragmentRenderer(
@@ -70,21 +65,11 @@ class InlineRendererFragmentHandlerPlugin extends AbstractPlugin implements Frag
         return $inlineFragmentRenderer;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\HttpKernelInterface
-     */
     protected function getHttpKernel(ContainerInterface $container): HttpKernelInterface
     {
         return $container->get(static::SERVICE_KERNEL);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
     protected function getEventDispatcher(ContainerInterface $container): EventDispatcherInterface
     {
         return $container->get(static::SERVICE_EVENT_DISPATCHER);

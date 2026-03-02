@@ -51,9 +51,6 @@ class SubRequestHandlerTest extends Unit
         });
     }
 
-    /**
-     * @return void
-     */
     public function testHandleSubRequestWithGetParams(): void
     {
         $subRequestHandler = new SubRequestHandler($this->tester->getKernel());
@@ -63,9 +60,6 @@ class SubRequestHandlerTest extends Unit
         $this->assertSame('GET: fruit=mango', $response->getContent());
     }
 
-    /**
-     * @return void
-     */
     public function testHandleSubRequestWithPostParams(): void
     {
         $subRequestHandler = new SubRequestHandler($this->tester->getKernel());

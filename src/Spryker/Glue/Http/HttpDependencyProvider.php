@@ -19,11 +19,6 @@ class HttpDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const PLUGINS_FRAGMENT_HANDLER = 'PLUGINS_FRAGMENT_HANDLER';
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
@@ -32,11 +27,6 @@ class HttpDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addFragmentHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_FRAGMENT_HANDLER, function () {
