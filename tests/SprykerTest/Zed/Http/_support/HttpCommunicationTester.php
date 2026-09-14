@@ -35,12 +35,12 @@ class HttpCommunicationTester extends Actor
 
     public function getResponseEvent(): ResponseEvent
     {
-        return new ResponseEvent($this->getHttpKernelMock(), Request::createFromGlobals(), HttpKernelInterface::MASTER_REQUEST, new Response());
+        return new ResponseEvent($this->getHttpKernelMock(), Request::createFromGlobals(), $this->getMainRequestType(), new Response());
     }
 
     public function getRequestEvent(): RequestEvent
     {
-        return new RequestEvent($this->getHttpKernelMock(), Request::createFromGlobals(), HttpKernelInterface::MASTER_REQUEST);
+        return new RequestEvent($this->getHttpKernelMock(), Request::createFromGlobals(), $this->getMainRequestType());
     }
 
     protected function getHttpKernelMock(): HttpKernelInterface
@@ -49,5 +49,10 @@ class HttpCommunicationTester extends Actor
         $httpKernelMock = Stub::makeEmpty(HttpKernelInterface::class);
 
         return $httpKernelMock;
+    }
+
+    protected function getMainRequestType(): int
+    {
+        return HttpKernelInterface::MAIN_REQUEST;
     }
 }

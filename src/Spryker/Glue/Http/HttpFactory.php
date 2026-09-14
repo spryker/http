@@ -12,8 +12,8 @@ use Spryker\Shared\Http\DataCollector\ExternalHttpDataCollector;
 use Spryker\Shared\Http\Logger\ExternalHttpInMemoryLogger;
 use Spryker\Shared\Http\Logger\ExternalHttpInMemoryLoggerInterface;
 use Symfony\Bridge\Twig\Extension\HttpKernelExtension;
+use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
-use Symfony\Component\HttpKernel\UriSigner;
 use Twig\Extension\AbstractExtension;
 
 /**

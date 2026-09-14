@@ -70,7 +70,7 @@ class HttpConfig extends AbstractSharedConfig
     /**
      * @api
      *
-     * @return int
+     * @return int<0, 63>
      */
     public function getTrustedHeaderSet(): int
     {

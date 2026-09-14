@@ -15,8 +15,8 @@ use Symfony\Bridge\Twig\Extension\HttpKernelExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\HttpFoundation\Type\FormTypeHttpFoundationExtension;
 use Symfony\Component\Form\FormTypeExtensionInterface;
+use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\HttpKernel\EventListener\FragmentListener;
-use Symfony\Component\HttpKernel\UriSigner;
 use Twig\Extension\AbstractExtension;
 
 /**
