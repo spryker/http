@@ -30,34 +30,157 @@
 
 {% block panel %}
     <style>
-        table {
-            table-layout:fixed;
+        .http-log-table {
+            table-layout: auto;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
         }
-        td {
+        .http-log-table .col-shrink {
+            white-space: nowrap;
+            width: 1%;
+        }
+        .http-log-table .col-fill {
+            width: 99%;
+        }
+        .http-log-table th {
+            background: #2e3d50;
+            color: #fff;
+            padding: 9px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .http-log-table td {
+            padding: 8px 10px;
+            vertical-align: top;
+            border-bottom: none;
+            background: transparent;
+        }
+        .http-log-table tbody tr.http-log-row-even td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .http-log-table code {
+            background: #eef1f5;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #3c4c60;
+            word-break: break-all;
+        }
+        .http-log-table .http-log-method {
+            font-weight: 600;
+        }
+        .http-log-table pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            font-size: 12px;
+        }
+        .http-log-details-row td {
+            padding-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .http-log-details-cell {
+            padding: 6px 10px 10px 10px;
+        }
+        .http-log-details-content {
+            border-radius: 4px;
+            padding: 10px 14px;
+            margin-top: 4px;
             overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .http-log-table details {
+            padding-top: 4px;
+        }
+        .http-log-table details summary {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 12px;
+            color: #ccc;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            user-select: none;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+        }
+        .http-log-table details summary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #fff;
+        }
+        .http-log-table details[open] summary {
+            margin-bottom: 6px;
+            background: #2e3d50;
+            border-color: #2e3d50;
+            color: #fff;
+        }
+        .http-log-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            border: 1px dashed #ddd;
+            border-radius: 6px;
         }
     </style>
 
     <h2>External Http Requests</h2>
-    <table>
-        <tr>
-            <th>Method</th>
-            <th>Url</th>
-            <th>Request Data</th>
-            <th>Response Data</th>
-        </tr>
 
-        {% for logData in collector.logs %}
-            <tr>
-                <td>{{ logData['method'] }}</td>
-                <td>{{ logData['url'] }}</td>
-                <td>
-                    <pre>{{ logData['request_data'] }}</pre>
-                </td>
-                <td>
-                    <pre>{{ logData['response_data'] }}</pre>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% set logs = collector.logs %}
+
+    {% if logs is empty %}
+        <div class="http-log-empty">
+            No external HTTP requests were captured for this request.
+        </div>
+    {% else %}
+        <table class="http-log-table">
+            <thead>
+                <tr>
+                    <th class="col-shrink">#</th>
+                    <th class="col-shrink">Method</th>
+                    <th class="col-fill">Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i, log in logs %}
+                    <tr class="{% if i is even %}http-log-row-even{% endif %}">
+                        <td class="col-shrink">{{ i + 1 }}</td>
+                        <td class="col-shrink http-log-method">{{ log.method }}</td>
+                        <td><code>{{ log.url }}</code></td>
+                    </tr>
+                    <tr class="http-log-details-row {% if i is even %}http-log-row-even{% endif %}">
+                        <td colspan="3" class="http-log-details-cell">
+                            <details>
+                                <summary>Show request data</summary>
+                                <div class="http-log-details-content">
+                                    {{ _self.renderLogValue(log.request_data) }}
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Show response data</summary>
+                                <div class="http-log-details-content">
+                                    {{ _self.renderLogValue(log.response_data) }}
+                                </div>
+                            </details>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}
+
+{% macro renderLogValue(value) %}
+    {% if value is iterable %}
+        {{ profiler_dump(value) }}
+    {% else %}
+        <pre>{{ value }}</pre>
+    {% endif %}
+{% endmacro %}

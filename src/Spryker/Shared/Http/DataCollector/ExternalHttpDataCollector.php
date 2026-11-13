@@ -18,6 +18,16 @@ class ExternalHttpDataCollector extends DataCollector implements LateDataCollect
 {
     protected const string DATA_COLLECTOR_NAME = 'external_http';
 
+    protected const string KEY_LOGS = 'logs';
+
+    protected const string KEY_METHOD = 'method';
+
+    protected const string KEY_URL = 'url';
+
+    protected const string KEY_REQUEST_DATA = 'request_data';
+
+    protected const string KEY_RESPONSE_DATA = 'response_data';
+
     public function __construct(
         protected ExternalHttpInMemoryLoggerInterface $externalHttpInMemoryLogger,
     ) {
@@ -25,7 +35,6 @@ class ExternalHttpDataCollector extends DataCollector implements LateDataCollect
 
     public function collect(Request $request, Response $response, ?Throwable $exception = null): void
     {
-        $this->data['logs'] = $this->externalHttpInMemoryLogger->getLogs();
     }
 
     /**
@@ -34,7 +43,18 @@ class ExternalHttpDataCollector extends DataCollector implements LateDataCollect
      */
     public function lateCollect(): void
     {
-        $this->data['logs'] = $this->externalHttpInMemoryLogger->getLogs();
+        $logs = [];
+
+        foreach ($this->externalHttpInMemoryLogger->getLogs() as $log) {
+            $logs[] = [
+                static::KEY_METHOD => $log[static::KEY_METHOD] ?? null,
+                static::KEY_URL => $log[static::KEY_URL] ?? null,
+                static::KEY_REQUEST_DATA => $this->cloneVar($this->decodeLogValue($log[static::KEY_REQUEST_DATA] ?? null)),
+                static::KEY_RESPONSE_DATA => $this->cloneVar($this->decodeLogValue($log[static::KEY_RESPONSE_DATA] ?? null)),
+            ];
+        }
+
+        $this->data[static::KEY_LOGS] = $logs;
     }
 
     public function getName(): string
@@ -48,10 +68,25 @@ class ExternalHttpDataCollector extends DataCollector implements LateDataCollect
     }
 
     /**
-     * @return array<string, string>
+     * @return array<int, array<string, mixed>>
      */
     public function getLogs(): array
     {
-        return $this->data['logs'] ?? [];
+        return $this->data[static::KEY_LOGS] ?? [];
+    }
+
+    protected function decodeLogValue(mixed $value): mixed
+    {
+        if (!is_string($value)) {
+            return $value;
+        }
+
+        $decodedValue = json_decode($value, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return $value;
+        }
+
+        return $decodedValue;
     }
 }
